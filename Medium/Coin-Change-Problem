@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+       //using dynamic programming 
+      int n  = coins.size();
+      vector<int> dp(amount+1, amount+1);
+            
+            dp[0] = 0;
+            
+            for(int each_amount = 0; each_amount <= amount; each_amount++) {
+                    for(int each_coin = 0; each_coin < n; each_coin++) {
+                            if(each_amount >= coins[each_coin]) {
+                             dp[each_amount] = min(dp[each_amount], dp[each_amount - coins[each_coin]] + 1);
+                                 
+                            }
+                    }
+               
+                    
+            }
+          
+            return dp[amount] > amount ? -1 : dp[amount];
+    }
+};
