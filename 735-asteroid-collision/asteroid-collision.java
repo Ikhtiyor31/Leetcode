@@ -3,43 +3,23 @@ class Solution {
         int n = asteroids.length;
         Stack<Integer> stack = new Stack<>();
         for(int i = n - 1; i >= 0; i--) {
-            if (!stack.isEmpty() && stack.peek() < 0) {
-                if (asteroids[i] < 0) {
-                    stack.push(asteroids[i]);
-                } else if (Math.abs(stack.peek()) == asteroids[i]) {
+            
+            int asteroid = asteroids[i];
+            boolean destroyed = false;
+            while(!stack.isEmpty() && stack.peek() < 0 && asteroid > 0) {
+                int top = stack.peek();
+                if (-top == asteroid) {
                     stack.pop();
+                    destroyed = true;
+                    break;
+                } else if (-top > asteroid) {
+                    destroyed = true;
+                    break;
                 } else {
-                    boolean both = false;
-                    boolean asteroidWin = false;
-
-                    while(!stack.isEmpty() && stack.peek() < 0 &&  Math.abs(stack.peek()) <= Math.abs(asteroids[i])) {
-                        if (Math.abs(stack.peek()) == Math.abs(asteroids[i])) {
-                            both = true;
-                            stack.pop();
-                            break;
-                        } else {
-                            if (!stack.isEmpty() && Math.abs(stack.peek()) <= Math.abs(asteroids[i]))
-                                    asteroidWin = true;
-                             stack.pop();
-                             
-                              
-                        }
-                    }
-
-                    if (!stack.isEmpty() && stack.peek() < 0 && Math.abs(stack.peek()) > Math.abs(asteroids[i]))
-                            asteroidWin = false;
-
-                    System.out.println(asteroids[i]);
-                    if (both) continue;
-
-                    if (asteroidWin) {
-                        stack.push(asteroids[i]);
-                    }
-                   
+                    stack.pop();
                 }
-            } else {
-                stack.push(asteroids[i]);
             }
+            if (!destroyed) stack.push(asteroid);
         }
 
         int answer[] = new int[stack.size()];
