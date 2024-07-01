@@ -11,7 +11,6 @@ class Solution {
                 num += grid[i][j];
                  if (j != m - 1) num += ",";
            }
-           System.out.println(num);
            if (!map.containsKey(num))
              map.put(num, 0);
             
@@ -24,8 +23,6 @@ class Solution {
                  num = num + grid[j][i];
                  if (j != n - 1) num += ",";
             }
-            System.out.println(num);
-            System.out.println(map.getOrDefault(num, 0));
             if (map.containsKey(num) && map.get(num) > 0) {
                 answer += map.get(num);
                 //map.put(num, map.get(num) - 1);
