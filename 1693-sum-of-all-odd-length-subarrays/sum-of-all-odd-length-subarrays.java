@@ -1,28 +1,14 @@
 class Solution {
     public int sumOddLengthSubarrays(int[] arr) {
         int n = arr.length;
-        int prefixSum[] = new int[n];
-        for(int i = 0; i < n; i++) {
-            if (i == 0)
-                prefixSum[i] = arr[i];
-            else
-                prefixSum[i] = prefixSum[i-1] + arr[i];
-            System.out.print(prefixSum[i] + " ");
-        }
-      
-        int answer = prefixSum[n-1];
-        int odd = 0;
-        int index = 0;
-        for(int i = 0; i < n; i++) {
-            index += 2;
-            int k = -1;
-            for(int j = index; j < n; j++, k++) {
-                if (k == -1) 
-                    answer += prefixSum[j];
-                else
-                    answer += (prefixSum[j] - prefixSum[k]);
-            }
-           
+
+        int answer = 0;
+        for(int num = 0; num < n; num++) {
+            int s = num + 1;
+            int e = n - num;
+            int current = (s * e);
+            int oddSubarrays = (current + 1) / 2;
+            answer += (oddSubarrays * arr[num]);
         }
 
         return answer;
