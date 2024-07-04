@@ -5,4 +5,4 @@ FROM
     Courses
 GROUP BY 
     class
-HAVING COUNT(*) >= 5
+HAVING COUNT(student) >= 5
