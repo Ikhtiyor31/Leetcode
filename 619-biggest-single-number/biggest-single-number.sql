@@ -4,7 +4,7 @@ SELECT
 FROM 
     MyNumbers
 WHERE num IN (SELECT 
-    MAX(num) as num
+    num
 FROM
     MyNumbers
 GROUP BY
