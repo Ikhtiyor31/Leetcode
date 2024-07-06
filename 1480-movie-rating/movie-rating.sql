@@ -16,10 +16,9 @@ WITH
             u.name
         LIMIT 1
     ),
-    AverageRating AS (
+    HightestAverageOne AS (
         SELECT 
-            mo.title name,
-            AVG(mr2.rating) average_rating
+            mo.title name
         FROM 
             Movies mo
         LEFT JOIN 
@@ -30,16 +29,9 @@ WITH
             SUBSTR(mr2.created_at, 1, 7) = "2020-02"
         GROUP BY 
             mo.title
-        ),
-    HightestAverageOne AS (
-        SELECT 
-            name
-        FROM 
-            AverageRating
-        WHERE 
-            average_rating = (SELECT MAX(average_rating) FROM AverageRating)
         ORDER BY 
-            name
+            AVG(mr2.rating) DESC, 
+            mo.title
         LIMIT 1
     )
 
