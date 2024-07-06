@@ -1,11 +1,9 @@
 # Write your MySQL query statement below
 
 WITH 
-    RatingCount AS (
+    MaxRatingUser AS (
         SELECT 
-            u.user_id, 
-            u.name,
-            COUNT(mr.rating) as rating
+            u.name
         FROM Users u
         LEFT JOIN 
             MovieRating mr
@@ -14,15 +12,8 @@ WITH
         GROUP BY
             u.user_id
         ORDER BY 
-            rating DESC,
+            COUNT(*) DESC,
             u.name
-    ),
-    MaxRatingUser AS (
-        SELECT 
-            name 
-        FROM RatingCount 
-        WHERE rating = (SELECT MAX(rating) FROM RatingCount)
-        ORDER BY name 
         LIMIT 1
     ),
     AverageRating AS (
