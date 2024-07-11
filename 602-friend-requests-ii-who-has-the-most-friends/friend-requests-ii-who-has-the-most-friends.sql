@@ -6,10 +6,13 @@ WITH all_ids AS (
     SELECT accepter_id AS id
     FROM RequestAccepted 
 )
-
-SELECT id, 
-    COUNT(id) as num
+SELECT id, num 
+FROM 
+    (
+    SELECT id,
+    COUNT(id) as num,
+    RANK() OVER(ORDER BY COUNT(id) DESC) as rnk
 FROM all_ids
-GROUP BY id
-ORDER BY COUNT(id) DESC
-LIMIT 1
+GROUP BY id)
+t0 
+WHERE rnk = 1
