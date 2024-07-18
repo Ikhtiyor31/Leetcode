@@ -23,15 +23,6 @@ SELECT
     10 as 'price'
 FROM 
     Products
-WHERE 
-    product_id not in (
-        SELECT 
-    product_id
-FROM 
-    cte
-GROUP BY
-    product_id
-HAVING MAX(rk)
-    )
 GROUP BY 
-product_id 
+    product_id
+HAVING MIN(change_date) > '2019-08-16'
