@@ -5,15 +5,12 @@ class RecentCounter {
     }
     
     public int ping(int t) {
-        if (requests.isEmpty()) {
-            requests.add(t);
-            return 1;
-        }
         
+        requests.add(t);
         while(!requests.isEmpty() && requests.get(0) < t - 3000) {
             requests.remove(0);
         }
-        requests.add(t);
+        
 
         return requests.size();
     }
