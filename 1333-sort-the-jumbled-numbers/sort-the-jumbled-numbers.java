@@ -20,15 +20,6 @@ class Triple {
     public Integer getThird() {
         return third;
     }
-
-    @Override
-    public String toString() {
-        return "Triple{" +
-            "first=" + first +
-            ", second=" + second +
-            ", third=" + third +
-            '}';
-    }
 }
 class Solution {
     public int[] sortJumbled(int[] mapping, int[] nums) {
