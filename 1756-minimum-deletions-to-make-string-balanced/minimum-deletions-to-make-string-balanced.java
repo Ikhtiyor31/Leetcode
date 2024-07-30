@@ -21,7 +21,8 @@ class Solution {
             if (i == n - 1) {
                 count = Math.max(count, preProcessA[i]);
             } else {
-                count = Math.max(count, Math.max(preProcessA[i] + preProcessB[i + 1], preProcessB[i]));
+                count = Math.max(count, preProcessB[i]);
+                count = Math.max(count, preProcessA[i] + preProcessB[i + 1]);
             }
         }
         if (!aExist || !bExist) return 0;
