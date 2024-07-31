@@ -4,30 +4,25 @@ class Solution {
         int n = s.length();
         int[] preProcessB = new int[n];
         int[] preProcessA = new int[n];
-        boolean aExist = false;
+      
         for (int i = 0; i < n; i++) {
-            preProcessA[i] = preProcessA[i == 0 ? i : i - 1] + (s.charAt(i) == 'a' ? 1 : 0);
-            if (preProcessA[i] >= 1) aExist = true;
+            preProcessB[i] = preProcessB[i == 0 ? i : i - 1] + (s.charAt(i) == 'b' ? 1 : 0);
+          
         }
-        boolean bExist = false;
-        System.out.println(n);
+      
+ 
         for (int i = n - 1; i >= 0; i--) {
-            preProcessB[i] = preProcessB[i == n - 1 ? i : i + 1] + (s.charAt(i) == 'b' ? 1 : 0);
-            if (preProcessB[i] >= 1) bExist = true;
+            preProcessA[i] = preProcessA[i == n - 1 ? i : i + 1] + (s.charAt(i) == 'a' ? 1 : 0);
+          
         }
 
-        int count = 0;
+        int count = n;
         for (int i = 0; i < n; i++) {
-            if (i == n - 1) {
-                count = Math.max(count, preProcessA[i]);
-            } else {
-                count = Math.max(count, preProcessB[i]);
-                count = Math.max(count, preProcessA[i] + preProcessB[i + 1]);
-            }
+            count = Math.min(count, preProcessA[i] + preProcessB[i]);
         }
-        if (!aExist || !bExist) return 0;
+      
 
-        return n - count;
+        return count-1;
     }
 }
 
