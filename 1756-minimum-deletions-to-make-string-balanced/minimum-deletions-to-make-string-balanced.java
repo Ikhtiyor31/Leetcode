@@ -5,19 +5,15 @@ class Solution {
         int[] preProcessB = new int[n];
         int[] preProcessA = new int[n];
       
-        for (int i = 0; i < n; i++) {
-            preProcessB[i] = preProcessB[i == 0 ? i : i - 1] + (s.charAt(i) == 'b' ? 1 : 0);
-          
-        }
-      
+
  
         for (int i = n - 1; i >= 0; i--) {
             preProcessA[i] = preProcessA[i == n - 1 ? i : i + 1] + (s.charAt(i) == 'a' ? 1 : 0);
-          
         }
 
         int count = n;
         for (int i = 0; i < n; i++) {
+            preProcessB[i] = preProcessB[i == 0 ? i : i - 1] + (s.charAt(i) == 'b' ? 1 : 0);
             count = Math.min(count, preProcessA[i] + preProcessB[i]);
         }
       
