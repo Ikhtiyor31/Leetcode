@@ -22,29 +22,32 @@ class Solution {
         Queue<TreeNode> queue = new ArrayDeque<>();
         List<List<Integer>> list = new ArrayList<>();
         queue.offer(root);
-        int traverseCount = 0;
+        boolean leftToRight = true;
         while (!queue.isEmpty()) {
             int length = queue.size();
-            List<Integer> temp = new ArrayList<>();
+            List<Integer> level = new ArrayList<>();
             while (length > 0) {
                 root = queue.poll();
-                temp.add(root.val);
+               
                 System.out.println(root.val);
-                if (root.right != null) {
-                    queue.offer(root.right);
+                if (leftToRight) {
+                     level.add(root.val);
+                } else {
+                    level.add(0, root.val);
                 }
 
                 if (root.left != null) {
                     queue.offer(root.left);
                 }
 
+                if (root.right != null) {
+                    queue.offer(root.right);
+                }
+
                 length--;
             }
-            if (traverseCount % 2 == 0) {
-                Collections.reverse(temp);
-            }
-            list.add(new ArrayList<>(temp));
-            traverseCount++;
+            leftToRight = !leftToRight;            
+            list.add(new ArrayList<>(level));
         }
 
         return list;
