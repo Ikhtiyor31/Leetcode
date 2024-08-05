@@ -1,18 +1,28 @@
 class Solution {
     public String kthDistinct(String[] arr, int k) {
-        Map<String, Integer> freq = new HashMap<>();
+        Set<String> duplicateStrings = new HashSet<>();
+        Set<String> distinctStrings = new HashSet<>();
+        
         for (String str: arr) {
-            freq.put(str, freq.getOrDefault(str, 0) + 1);
+            
+            if (duplicateStrings.contains(str)) {
+                continue;
+            }
+
+            if (distinctStrings.contains(str)) {
+                distinctStrings.remove(str);
+                duplicateStrings.add(str);
+            } else {
+                distinctStrings.add(str);
+            }
         }
-  
+
         for (String str: arr) {
-            if (freq.containsKey(str) && freq.get(str) == 1) {
+            if (!duplicateStrings.contains(str)) {
                 k--;
             }
 
-            if (k == 0) {
-                return str;
-            }
+            if (k == 0) return str;
         }
 
         return "";
