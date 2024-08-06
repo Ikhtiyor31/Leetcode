@@ -1,31 +1,25 @@
 class Solution {
     public int minimumPushes(String word) {
-        Map<Character, Integer> frequencyMap = new HashMap<>();
+        int[] frequency = new int[26];
         for (char c: word.toCharArray()) {
-            frequencyMap.put(c, frequencyMap.getOrDefault(c, 0) + 1);
+            frequency[c - 'a']++;
+        }
+        Arrays.sort(frequency);
+        int[] sortedFrequency = new int[26];
+        for (int i = 25; i >= 0; i--) {
+            sortedFrequency[25-i] = frequency[i];
         }
 
-
-        List<Character> characters = new ArrayList<>(frequencyMap.keySet());
-        characters.sort((a, b) -> frequencyMap.get(b).compareTo(frequencyMap.get(a)));
-        
         int count = 0;
         int pushes = 1;
         int answer = 0;
-        Map<Character, Integer> map = new HashMap<>();
-        for (char c: characters) {
+        for (int i = 0; i < 26; i++) {
             count++;
             if (count != 1 && (count - 1) % 8 == 0) {
                 pushes++;
             }
-            map.put(c, frequencyMap.get(c) * pushes);
+            answer += (sortedFrequency[i] * pushes);
         }
-
-        for (int entry: map.values()) {
-            answer += entry;
-        }
-
-
         return answer;
     }
 }
