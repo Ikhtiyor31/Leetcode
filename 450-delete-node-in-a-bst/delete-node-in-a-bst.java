@@ -44,10 +44,10 @@ class Solution {
     }
 
     private TreeNode getMinNode(TreeNode root) {
-        TreeNode curr = root;
-        while (curr != null && curr.left != null) {
-            curr = curr.left;
+        if (root == null || root.left == null) {
+            return root;
         }
-        return  curr;
+
+        return getMinNode(root.left);
     }
 }
