@@ -10,14 +10,10 @@ class Solution {
             sortedFrequency[25-i] = frequency[i];
         }
 
-        int count = 0;
         int pushes = 1;
         int answer = 0;
         for (int i = 0; i < 26; i++) {
-            if (i != 0 && i % 8 == 0) {
-                pushes++;
-            }
-            answer += (sortedFrequency[i] * pushes);
+            answer += (sortedFrequency[i] *  (i / 8 + 1));
         }
         return answer;
     }
