@@ -1,17 +1,15 @@
 class Solution {
     public int minSwaps(String s) {
-        Stack<Character> stack = new Stack<>();
-        int unbalanced = 0;
+        int stackSize = 0;
         for (char bracket: s.toCharArray()) {
 
             if (bracket == '[') {
-                stack.push(bracket);
+                stackSize++;
             } else {
-                if (!stack.isEmpty()) stack.pop();
-                else unbalanced++;
+                if (stackSize > 0) stackSize--;
             }
         }
 
-        return (unbalanced + 1) / 2;
+        return (stackSize + 1) / 2;
     }
 }
