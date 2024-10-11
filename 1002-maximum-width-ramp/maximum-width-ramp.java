@@ -11,26 +11,33 @@ class Solution {
         
         int n = nums.length;
         int max = 0;
-        int[] soFarMaxNums = new int[n];
-    
-        PriorityQueue<Pair<Integer, Integer>> pq = new PriorityQueue<>(
-            Comparator.comparingInt((Pair<Integer, Integer> pair) -> pair.second)
-                      .thenComparingInt(pair -> pair.first)
-        );
-        for (int i = 0; i < n; i++) {
-            pq.add(new Pair<>(i, nums[i]));
+        int[][] soFarMaxNums = new int[n][2];
+        for (int i = n - 1; i >= 0; i--) {
+            if (i == n - 1 || soFarMaxNums[i+1][0] < nums[i]) {
+                soFarMaxNums[i][0] = nums[i]; // value
+                soFarMaxNums[i][1] = i;
+            } else {
+                soFarMaxNums[i][0] = soFarMaxNums[i+1][0];
+                soFarMaxNums[i][1] = soFarMaxNums[i+1][1]; 
+            }
         }
-
+        int left = 0;
+        int right = 0;
+        while (right < n) {
+            while (left < right && nums[left] > soFarMaxNums[right][0]) {
+                left++;
+            }
+            max = Math.max(max, right - left);
+            right++;
+        }
        
-        int minIndex = n;
-        while (!pq.isEmpty()) {
-                Pair<Integer, Integer> currPair = pq.poll();
-                max = Math.max(currPair.first - minIndex, max);
-                minIndex = Math.min(minIndex, currPair.first);
-            
-        }
+      
+        
 
         return max;
     }
 }
+
+// [6,0,8,2,1,5]
+//          8:2 8:2 8:2 5:5 5:5 5:5
 
