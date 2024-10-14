@@ -17,7 +17,7 @@ class Solution {
             }
     }
     public long maxKelements(int[] nums, int k) {
-        PriorityQueue<Integer> pq = new PriorityQueue<>( new CustomComparator());
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
         
         for (int num: nums) {
             pq.add(num);
@@ -25,7 +25,7 @@ class Solution {
         Long answer = 0L;
         while (!pq.isEmpty() && k > 0) {
             answer += pq.peek();
-            int toReplace = (int) Math.ceil((double) pq.poll() / 3);
+            int toReplace = (int) Math.ceil(pq.poll() / 3.0);
             pq.add(toReplace);
             k--;
         }
