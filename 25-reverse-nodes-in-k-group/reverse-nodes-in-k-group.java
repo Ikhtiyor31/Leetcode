@@ -17,7 +17,7 @@ class Solution {
         while (current != null) {
             ListNode tail = current;
             int i = 1;
-            for (; i < k && tail != null && tail.next != null; i++) {
+            for (; i < k && tail.next != null; i++) {
                 tail = tail.next;
             }
             if (i != k) {
@@ -29,27 +29,24 @@ class Solution {
             ListNode reversed = reverseNode(current);
             if (answer == null) {
                 answer = reversed;
-                previous = current;
             } else {
                 previous.next = reversed;
-                previous = current;
             }
             
-            current.next = nextStart;
-            current = current.next;
+            previous = current;
+            current = nextStart;
         }
 
         return answer;
     }
 
     public ListNode reverseNode(ListNode head) {
-        ListNode current = head;
         ListNode previous = null;
-        while (current != null) {
-            ListNode newNode = current.next;
-            current.next = previous;
-            previous = current;
-            current = newNode;
+        while (head != null) {
+            ListNode next = head.next;
+            head.next = previous;
+            previous = head;
+            head = next;
         }
 
         return previous;
