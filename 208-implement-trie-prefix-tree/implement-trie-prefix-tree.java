@@ -4,9 +4,7 @@ class Trie {
         TrieNode[] children = new TrieNode[26];
         boolean isEnd = false;
         public TrieNode() {
-            for (int i = 0; i < 26; i++) {
-                this.children[i] = null;
-            }
+
         }
     }
 
@@ -21,6 +19,9 @@ class Trie {
             int idx = c - 'a';
             if (current.children[idx] == null) {
                 current.children[idx] = new TrieNode();
+                for (int i = 0; i < 26; i++) {
+                    current.children[idx].children[i] = null;
+                }
             }
             current = current.children[idx];
         }
