@@ -19,9 +19,6 @@ class Trie {
             int idx = c - 'a';
             if (current.children[idx] == null) {
                 current.children[idx] = new TrieNode();
-                for (int i = 0; i < 26; i++) {
-                    current.children[idx].children[i] = null;
-                }
             }
             current = current.children[idx];
         }
