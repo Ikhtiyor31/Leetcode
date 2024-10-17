@@ -15,7 +15,6 @@ class Solution {
                     char c = digits[i];
                     digits[i] = (char)('0' + d);
                     digits[last[d]] = c;
-                    System.out.println(digits);
                     return Integer.parseInt(new String(digits));
                 }
             }
