@@ -10,24 +10,25 @@
  */
 class Solution {
     public ListNode insertionSortList(ListNode head) {
-        
-        List<Integer> list = new ArrayList<>();
+        ListNode ret = new ListNode();
+
         while (head != null) {
-            list.add(head.val);
-            head = head.next;
+            ListNode copy = ret;
+
+            while (copy.next != null && copy.next.val <= head.val) {
+                copy = copy.next;
+            }
+
+            ListNode takeNext = head.next;
+            head.next = copy.next;
+            copy.next = head;
+            head = takeNext;
         }
 
-        head = new ListNode(0);
-        ListNode current = head;
-        Collections.sort(list);
+        return ret.next;
 
-        for (int item: list) {
-
-            current.next = new ListNode(item);
-            current = current.next;
-        }
-
-
-        return head.next;
     }
 }
+/*
+0 -> 2 -> 4
+*/
