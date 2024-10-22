@@ -1,22 +1,23 @@
 class Solution {
     public int minAddToMakeValid(String s) {
-        Stack<Character> parenheses = new Stack<>();
+        //Stack<Character> parenheses = new Stack<>();
         int count = 0;
+        int need = 0;
         for (char c: s.toCharArray()) {
             if (c == '(') {
-                parenheses.push(c);
+                //parenheses.push(c);
                 count++;
             } else {
-                if (!parenheses.isEmpty() && c == ')' && parenheses.peek() == '(') {
-                    parenheses.pop();
+                if (count > 0) {
+                    //parenheses.pop();
                     count--;
                 } else {
-                    parenheses.push(c);
-                    count++;
+                    //parenheses.push(c);
+                    need++;
                 }
             }
         }
 
-        return count;
+        return count + need;
     }
 }
