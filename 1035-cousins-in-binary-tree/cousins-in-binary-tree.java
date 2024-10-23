@@ -44,31 +44,37 @@ class Solution {
         return 0;     
     }
 
-    public boolean isSameParent(TreeNode root, int x, int y) {
+    public TreeNode findParent(TreeNode root, int x, TreeNode parent) {
         if (root == null) {
-            return false;
+            return null;
+        }
+        if (root.val == x) {
+            return parent;
         }
 
-        if (root.left != null && root.right != null) {
-            if ((root.left.val == x || root.left.val == y) && (root.right.val == x || root.right.val == y)) {
-                return true;
-            }
+        TreeNode left = findParent(root.left, x, root);
+        TreeNode right = findParent(root.right, x, root);
+
+        if (left != null) {
+            return left;
         }
 
-        boolean left = isSameParent(root.left, x, y);
-        boolean right = isSameParent(root.right, x, y);
+        if (right != null) {
+            return right;
+        }
 
-        return left || right;
+        return null;
+        
     }
 
     public boolean isCousins(TreeNode root, int x, int y) {
         
         int xDepth = findDepth(root, x);
         int yDepth = findDepth(root, y);
-        if (xDepth != yDepth) {
-            return false;
-        }
+        TreeNode xParent = findParent(root, x, null);
+        TreeNode yParent = findParent(root, y, null);
 
-        return !isSameParent(root, x, y);
+
+        return xDepth == yDepth && xParent != yParent;
     }
 }
