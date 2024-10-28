@@ -5,30 +5,21 @@ class Solution {
         return Math.floor(sqrt) == sqrt;
     }
     public int longestSquareStreak(int[] nums) {
-        Arrays.sort(nums);
-
-        int[] array = new int[nums[nums.length - 1] + 1];
-        for (int num: nums) {
-            array[num] = 1;
-        }
         
-        int count = 0;
-        int longest = 0;
-        for (int i = nums.length - 1; i >= 0; i--) {
-            int current = nums[i];
-            while (isPerfectSquareRoot(current) && array[(int) Math.sqrt(current)] == 1) {
-                count++;
-                System.out.println(current);
-                current = (int) Math.sqrt(current);
-                System.out.println(current);
-            } 
-            longest = (int) Math.max(count, longest);
-            count=0;
-            
-            longest = (int) Math.max(count, longest);
+        Map<Integer, Integer> longestStreak = new HashMap<>();
+        Arrays.sort(nums);
+        for (int num: nums) {
+            if (isPerfectSquareRoot(num) && longestStreak.containsKey((int) Math.sqrt(num))) {
+                longestStreak.put(num, longestStreak.get((int) Math.sqrt(num)) + 1);
+            } else {
+                longestStreak.put(num, 1);
+            }
         }
-
-        return longest > 0 ? longest + 1 : - 1;
+        int longest = 0;
+        for (int streak: longestStreak.values()) {
+            longest = Math.max(longest, streak);
+        }
+        return longest != 1 ? longest : - 1;
 
     }
 
