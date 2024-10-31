@@ -26,9 +26,9 @@ class Solution {
         }
 
         int maxLength = 0;
-        for (int i = 1; i < n-1; i++) {
+        for (int i = 0; i < n; i++) {
             if (leftLongest[i] > 1 && rightLongest[i] > 1)
-            maxLength = Math.max(maxLength, leftLongest[i] + rightLongest[i] - 1);
+             maxLength = Math.max(maxLength, leftLongest[i] + rightLongest[i] - 1);
         }
 
         return n - maxLength;
