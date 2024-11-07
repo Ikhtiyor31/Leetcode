@@ -3,10 +3,10 @@ class Solution {
     public int largestCombination(int[] candidates) {
         int n = candidates.length;
         int answer = 0;
-        for (int i = 0; i < 32; i++) {
+        for (int i = 0; i < 24; i++) {
             int cnt = 0;
             for (int num: candidates) {
-                cnt += (num >> i) & 1;
+                if((num & (1 << i)) != 0) cnt++;
             }
             answer = Math.max(answer, cnt);
         }
@@ -15,6 +15,7 @@ class Solution {
 }
 /*
  [16, 17, 71, 62, 12, 24, 14]
+                   
  000000000000000000010000 
  000000000000000000010001
  000000000000000001000111
@@ -23,4 +24,5 @@ class Solution {
  000000000000000000011000
  000000000000000000001110
                   1144432
+ 
 */
