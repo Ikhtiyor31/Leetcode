@@ -1,33 +1,50 @@
 class Solution {
     public int[] asteroidCollision(int[] asteroids) {
-        int n = asteroids.length;
         Stack<Integer> stack = new Stack<>();
-        for(int i = n - 1; i >= 0; i--) {
-            
-            int asteroid = asteroids[i];
-            boolean destroyed = false;
-            while(!stack.isEmpty() && stack.peek() < 0 && asteroid > 0) {
-                int top = stack.peek();
-                if (-top == asteroid) {
-                    stack.pop();
-                    destroyed = true;
-                    break;
-                } else if (-top > asteroid) {
-                    destroyed = true;
-                    break;
-                } else {
-                    stack.pop();
+
+        for (int asteroid: asteroids) {
+            if (stack.isEmpty()) {
+                stack.push(asteroid);
+            } else {
+                int win = 0;
+                while (!stack.isEmpty() && stack.peek() > 0 && asteroid < 0) {
+                    if (Math.abs(asteroid) == stack.peek()) {
+                        win = 2;
+                        stack.pop();
+                        break;
+                    } else if (Math.abs(asteroid) > stack.peek()) {
+                        win = 1;
+                        stack.pop();
+                    } else {
+                        win = 2;
+                        break;
+                    }
+                }
+                
+                if (win == 0 || win == 1) {
+                    stack.push(asteroid);
                 }
             }
-            if (!destroyed) stack.push(asteroid);
         }
 
-        int answer[] = new int[stack.size()];
-        int i = 0;
-        while(!stack.isEmpty()) {
-            answer[i++] = stack.peek();
-            stack.pop();
+
+        int[] ans = new int[stack.size()];
+        int n = stack.size() - 1;
+        while (!stack.isEmpty()) {
+            ans[n--] = stack.pop();
         }
-        return answer;
+
+
+        return ans;
     }
 }
+
+/*
+[10, -7, -5]
+
+[5, 10, -5]
+
+
+[-5,7]
+
+*/
