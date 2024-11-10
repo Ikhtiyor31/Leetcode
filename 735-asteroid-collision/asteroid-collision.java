@@ -6,22 +6,22 @@ class Solution {
             if (stack.isEmpty()) {
                 stack.push(asteroid);
             } else {
-                int win = 0;
+                boolean win = true;
                 while (!stack.isEmpty() && stack.peek() > 0 && asteroid < 0) {
                     if (Math.abs(asteroid) == stack.peek()) {
-                        win = 2;
+                        win = false;
                         stack.pop();
                         break;
                     } else if (Math.abs(asteroid) > stack.peek()) {
-                        win = 1;
+                        win = true;
                         stack.pop();
                     } else {
-                        win = 2;
+                        win = false;
                         break;
                     }
                 }
                 
-                if (win == 0 || win == 1) {
+                if (win) {
                     stack.push(asteroid);
                 }
             }
