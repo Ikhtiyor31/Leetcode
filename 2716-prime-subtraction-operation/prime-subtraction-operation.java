@@ -1,14 +1,12 @@
 class Solution {
-    private int findMaxPrimeLessThanN(int n, int next) {
-        int maxPrime = -1; 
-        for (int i = n - 1; i > 1; i--) {
-            if (isPrime(i)) {
-                if (n - i > maxPrime && next > n - i) {
-                    maxPrime = n - i;
-                }
+    private int findMaxPrimeLessThan(int current, int next) {
+        // Iterate from current - 1 down to 2 to find the largest prime
+        for (int i = 1; i < current; i++) {
+            if (isPrime(i) && current - i < next) {
+                return current - i;
             }
         }
-        return maxPrime;
+        return -1;
     }
 
     private boolean isPrime(int num) {
@@ -34,7 +32,10 @@ class Solution {
             if (nums[i] < nums[i + 1]) {
                 continue;
             }
-            int result = findMaxPrimeLessThanN(nums[i], nums[i+1]);
+            int result = findMaxPrimeLessThan(nums[i], nums[i+1]);
+            if (result == -1) {
+                return false;
+            }
             nums[i] = result != -1 ? result : nums[i];
             //System.out.println(nums[i]);
         }
