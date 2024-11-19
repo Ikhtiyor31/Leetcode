@@ -1,41 +1,37 @@
 class Solution {
     public int[] resultsArray(int[] nums, int k) {
         int n = nums.length;
-        Deque<Integer> deque = new ArrayDeque<>();
         int[] ans = new int[n - k + 1];
-        for (int i = 0; i < k; i++) {
-            if (deque.isEmpty()) {
-                deque.add(nums[i]);
+        int counter = 0;
+        for (int i = 0; i < k ; i++) {
+            if (i == 0) {
+                counter = 1;
             } else {
-                if (deque.getLast() + 1 != nums[i]) {
-                    deque.clear();
-                    deque.add(nums[i]);
+                if (nums[i - 1] + 1 != nums[i]) {
+                    counter = 1;
                 } else {
-                    deque.add(nums[i]);
+                    counter += 1;
                 }
             }
         }
         int j = 0;
-        if (deque.size() == k) {
-            ans[j++] = deque.getLast();
+        if (counter == k) {
+            ans[j++] = nums[k-1];
         } else {
             ans[j++] = -1;
         }
 
         for (int i = k; i < n; i++) {
-            if (deque.getLast() + 1 == nums[i]) {
-                deque.add(nums[i]);
+            if (nums[i - 1] + 1 == nums[i]) {
+                counter++;
             } else {
-                while (!deque.isEmpty()) {
-                    deque.pop();
-                }
-                deque.add(nums[i]);
+                counter = 1;
             }
-            if (deque.size() > k) {
-                deque.removeFirst();
+            if (counter > k) {
+                counter--;
             }
-            if (deque.size() == k) {
-                ans[j++] = deque.getLast();
+            if (counter == k) {
+                ans[j++] = nums[i];
             } else {
                 ans[j++] = -1;
             }
