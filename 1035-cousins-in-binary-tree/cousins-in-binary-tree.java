@@ -13,68 +13,44 @@
  *     }
  * }
  */
+
+ public class Pair<K, V> {
+    K first;
+    V second;
+    public Pair(K first, V second) {
+        this.first = first;
+        this.second = second;
+    }
+ }
 class Solution {
-    static class Pair<K, V> {
-        K first;
-        V second;
-        Pair(K f, V s) {
-            first = f;
-            second = s;
-        } 
-    }
-    int findDepth(TreeNode root, int x) {
-        if (root == null) 
-            return 0;
-
-        if (root.val == x)
-            return 1;
-
-        int left = findDepth(root.left, x);
-        int right = findDepth(root.right, x);
-
-        if (left != 0) {
-            return left + 1;
-        }  
-
-        if (right != 0) {
-            return right + 1;
-        }
-
-
-        return 0;     
-    }
-
-    public TreeNode findParent(TreeNode root, int x, TreeNode parent) {
+    Pair<TreeNode, Integer> findParent(TreeNode root, TreeNode parent, int x, int depth) {
         if (root == null) {
             return null;
         }
+
         if (root.val == x) {
-            return parent;
+            return new Pair<>(parent, depth);
         }
 
-        TreeNode left = findParent(root.left, x, root);
-        TreeNode right = findParent(root.right, x, root);
+        Pair<TreeNode, Integer> left = findParent(root.left, root, x, depth + 1);
+        Pair<TreeNode, Integer> right = findParent(root.right, root, x, depth + 1);
 
         if (left != null) {
             return left;
         }
-
         if (right != null) {
             return right;
         }
 
         return null;
-        
     }
-
     public boolean isCousins(TreeNode root, int x, int y) {
-        
-        int xDepth = findDepth(root, x);
-        int yDepth = findDepth(root, y);
-        TreeNode xParent = findParent(root, x, null);
-        TreeNode yParent = findParent(root, y, null);
+        Pair<TreeNode, Integer> first = findParent(root, null, x, 0);
+        Pair<TreeNode, Integer> second = findParent(root, null, y, 0);
+        if (first == null || second == null) {
+            return false;
+        }
 
-
-        return xDepth == yDepth && xParent != yParent;
+        return first.first != second.first && first.second == second.second;
     }
 }
