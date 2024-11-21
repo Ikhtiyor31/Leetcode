@@ -1,47 +1,47 @@
 class Solution {
     public long countFairPairs(int[] nums, int lower, int upper) {
-        Arrays.sort(nums);
+        Arrays.sort(nums);  
         int n = nums.length;
-        int i = 0;
-        int j = n - 1;
-        long answer = 0;
-        while (i < j) {
-            int target = nums[i] + nums[j];
-            if (lower <= target && target <= upper) {
-                // binary search 
-                int l = i;
-                int r = j;
-                int min = 0;
-                while (l <= r) {
-                    int mid = l + (r - l) / 2;
-                    if (mid < j && nums[mid] + nums[j] <= upper) {
-                        min = mid;
-                        l = mid + 1;
+        int l = 0;
+        int r = n - 1;
+        long count = 0;
+        while (l < r) {
+            //System.out.println(l + " " + r);
+            if (nums[l] + nums[r] >= lower && nums[l] + nums[r] <= upper) {
+                // binary search
+                int L = l;
+                int R = r;
+                int mid = r;
+                while (L <= R) {
+                    mid = L + (R - L) / 2;
+                    if (mid < r && nums[mid] + nums[r] <= upper) {
+                        L = mid + 1;
                     } else {
-                        r = mid - 1;
+                        R = mid - 1;
                     }
                 }
-                answer += (min - i) + 1;
-                j--;
-            } else if (lower > target) {
-                i++;
+                //System.out.println(L + " - " + l);
+                count += (L - l);
+                r--;
+               
+            } else if (nums[l] + nums[r] > upper) {
+                r--;
             } else {
-                j--;
+                l++;
             }
+           
         }
 
-        return answer;
+        return count;
     }
 }
 
 /*
-nums = [0, 1, 4, 4, 5, 7]
-lower = 3, upper = 6
-pair(0, 5)
-pair(1, 5)
-pair(1, )
-[1,2,5,7,9]
+nums = [0, 1, 4, 4, 5, 7], lower = 3, upper = 6
+// first find two numbers that add up to val withing the range of lower and up
+ 
 
-
+ [1, 2, 5, 7, 9] 11
+ [5,5,5,7,7]
 
 */
