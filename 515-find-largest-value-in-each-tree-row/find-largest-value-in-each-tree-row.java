@@ -25,13 +25,9 @@ class Solution {
 
         while (!q.isEmpty()) {
             int size = q.size();
-            int size2 = size - 1;
-            root = q.poll();
-            int max = root.val;
+            int max = Integer.MIN_VALUE;
             while (size > 0) {
-                if (size <= size2) {
-                    root = q.poll();
-                }
+                root = q.poll();
                 max = Math.max(max, root.val);
                 if (root.left != null) {
                     q.add(root.left);
