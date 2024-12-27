@@ -14,28 +14,23 @@
  * }
  */
 class Solution {
-
-    public void inorder(List<Integer> list, TreeNode root) {
+    TreeNode answerTreeNode;
+    public void inorder(TreeNode root) {
         if (root == null) {
             return;
         }
 
-        inorder(list, root.left);
-        list.add(root.val);
-        inorder(list, root.right);
+        inorder(root.left);
+        root.left = null;
+        answerTreeNode.right = root;
+        answerTreeNode.left = null;
+        answerTreeNode = answerTreeNode.right;
+        inorder(root.right);
     }
     public TreeNode increasingBST(TreeNode root) {
-        List<Integer> list = new ArrayList<>();
-        inorder(list, root);
-
-        TreeNode answerTree = new TreeNode(-1);
-        TreeNode ret = answerTree;
-        for (int num: list) {
-            TreeNode newTree = new TreeNode(num);
-            answerTree.right = newTree;
-            answerTree.left = null;
-            answerTree = answerTree.right;
-        }
+        answerTreeNode = new TreeNode(-1);
+        TreeNode ret = answerTreeNode;
+        inorder(root);
 
         return ret.right;
     }
