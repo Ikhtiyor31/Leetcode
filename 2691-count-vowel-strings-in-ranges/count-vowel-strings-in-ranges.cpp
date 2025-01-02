@@ -5,18 +5,16 @@ public:
     }
     vector<int> vowelStrings(vector<string>& words, vector<vector<int>>& queries) {
         int n = words.size();
-        vector<int> prefix_sum = vector<int>(n);
+        vector<int> prefix_sum(n);
         int sum = 0;
         for(int i = 0; i < n; i++) {
             string word = words[i];
             //cout << isVowel(word[0]) << " " << isVowel(word[word.size() - 1]) << "\n";
             if (isVowel(word[0]) && isVowel(word[word.size() - 1])) {
                 sum++;
-                prefix_sum[i] = sum;
-                //cout << sum << "\n";
-            } else {
-                prefix_sum[i] = sum;
             }
+            prefix_sum[i] = sum;
+            
             
         }
         vector<int> answer;
