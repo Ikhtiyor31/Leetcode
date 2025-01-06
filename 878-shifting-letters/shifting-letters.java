@@ -9,9 +9,9 @@ class Solution {
         }
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < s.length(); i++) {
-            int ascii = (int)(s.charAt(i) - 'a');
-            int shifted = (sum + ascii) % 26;
-            sb.append((char)('a' + shifted));
+            int index = (int)(s.charAt(i) - 'a');
+            char shifted = (char)((sum + index) % 26 + 97);
+            sb.append(shifted);
             sum = ((sum - shifts[i]) % 26 + 26) % 26;
         }
 
