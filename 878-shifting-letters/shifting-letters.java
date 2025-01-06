@@ -12,14 +12,10 @@ class Solution {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < s.length(); i++) {
             sum = prefix[i];
-            long ascii = sum % 26;
-            System.out.println(ascii);
-            if (s.charAt(i) + ascii > 122) {
-                long ascii2 = ((s.charAt(i) + ascii) % 122);
-                sb.append((char) (96 + ascii2));
-            } else {
-                sb.append((char)(s.charAt(i) + ascii));
-            }
+            int ascii = (int)(s.charAt(i) - 'a');
+            int shifted = (sum + ascii) % 26;
+            sb.append((char)('a' + shifted));
+            
             
         }
 
