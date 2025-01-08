@@ -2,8 +2,7 @@ class Solution {
     public boolean isPrefixAndSuffix(String str1, String str2) {
         if (str1.length() > str2.length()) return false;
 
-        return str1.equals(str2.substring(0, str1.length())) && 
-                str1.equals(str2.substring(str2.length() - str1.length(), str2.length()));
+        return str2.startsWith(str1) && str2.endsWith(str1);
     }
     public int countPrefixSuffixPairs(String[] words) {
         int count = 0;
