@@ -1,29 +1,34 @@
 class Solution {
 
     public int findMinFibonacciNumbers(int k) {
-        
+
         if (k == 3 || k == 2 || k == 1) {
             return 1;
         }
-        List<Integer> fib = new ArrayList<>();
-        fib.add(1);
-        fib.add(1);
 
-        for (int i = 2; i < k; i++) {
-            int sum = fib.get(i-1) + fib.get(i-2);
-            if (sum > k) break;
-            fib.add(sum);
+        int a = 1;
+        int b = 1;
+        int c = 0;
+        int i = 2;
+        for (; i <= k; i++) {
+            c = a;
+            a = b;
+            b = c + b;
+            if (b > k) {
+                break;
+            }
         }
-        int j = fib.size() - 1;
+
         int count = 0;
         while (k != 0) {
-            if (k >= fib.get(j)) {
-                k -= fib.get(j);
+            if (k >= b) {
+                k -= b;
                 count++;
             }
-            j--;
+            c = a;
+            a = b - a;
+            b = c;
         }
-        
 
         return count;
 
