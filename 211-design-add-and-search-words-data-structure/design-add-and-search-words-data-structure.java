@@ -1,55 +1,59 @@
 class WordDictionary {
-    static class Trie {
-        Trie[] children;
+
+     class TrieNode {
+        TrieNode[] children;
         boolean isEnd;
-        public Trie() {
-            children = new Trie[26];
+        public TrieNode() {
+            children = new TrieNode[26];
             isEnd = false;
         }
     }
-    Trie root;
+
+    TrieNode root;
     public WordDictionary() {
-        root = new Trie();
+         root = new TrieNode();
     }
     
     public void addWord(String word) {
-        Trie current = root;
+        TrieNode current = root;
         for (char c: word.toCharArray()) {
-            int idx = c - 'a';
-            if (current.children[idx] == null) {
-                current.children[idx] = new Trie();
+            int index = c - 'a';
+            if (current.children[index] == null) {
+                current.children[index] = new TrieNode();
             }
-            
-            current = current.children[idx];
+            current = current.children[index];
         }
         current.isEnd = true;
     }
     
     public boolean search(String word) {
+        
 
         return dfs(word.toCharArray(), root, 0);
     }
 
-    public boolean dfs(char[] word, Trie root, int i) {
-
-        if (i == word.length) {
+    public boolean dfs(char[] word, TrieNode root, int index) {
+        if (index == word.length) {
             return root.isEnd;
         }
-
-        if (word[i]== '.'){
-            for (int c = 0; c < 26; c++) {
-                if (root.children[c] != null && dfs(word, root.children[c], i + 1))
+   
+        if (word[index] == '.') {
+            for (char c = 'a'; c <= 'z'; c++) {
+                
+                if(root.children[c-'a'] != null && dfs(word, root.children[c-'a'], index + 1)) {
                     return true;
+                }
             }
         } else {
-            int idx = word[i] - 'a';
-            if (root.children[idx] != null && dfs(word, root.children[idx], i + 1)) {
+            int indx = word[index] - 'a';
+            root = root.children[indx];
+            if (root != null && dfs(word, root, index + 1)) {
                 return true;
             }
         }
 
-        return false;
 
+        return false;
     }
 }
 
