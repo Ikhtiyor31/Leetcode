@@ -39,10 +39,11 @@ class WordDictionary {
    
         if (word[index] == '.') {
             for (char c = 'a'; c <= 'z'; c++) {
-                
-                if(root.children[c-'a'] != null && dfs(word, root.children[c-'a'], index + 1)) {
+                word[index] = c;
+                if(dfs(word, root, index)) {
                     return true;
                 }
+                word[index] = '.';
             }
         } else {
             int indx = word[index] - 'a';
