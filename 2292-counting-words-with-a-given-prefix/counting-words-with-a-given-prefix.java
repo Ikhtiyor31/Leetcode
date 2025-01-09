@@ -32,13 +32,11 @@ class Solution {
         for (char c: pref.toCharArray()) {
             int index = c - 'a';
             if (current.children[index] == null) {
-                count = 0;
-                break;   
+                return 0;  
             }
             current = current.children[index];
-            count = Math.min(count, current.count);
         }
 
-        return count;
+        return current.count;
     }
 }
