@@ -28,7 +28,6 @@ class Solution {
         }
 
         TrieNode current = root;
-        int count = 200; 
         for (char c: pref.toCharArray()) {
             int index = c - 'a';
             if (current.children[index] == null) {
