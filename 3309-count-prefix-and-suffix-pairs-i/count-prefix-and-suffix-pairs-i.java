@@ -18,6 +18,18 @@ class Solution {
         }
     }
 
+    public boolean startsWith(String word, TrieNode current) {
+        for (char c: word.toCharArray()) {
+            int index = c - 'a';
+            if (current.children[index] == null) {
+                return false;
+            }
+            current = current.children[index];
+        }
+
+        return true;
+    } 
+
     public int countPrefixSuffixPairs(String[] words) {
         int count = 0;
         
@@ -26,37 +38,22 @@ class Solution {
                 TrieNode prefixTrie = new TrieNode();
                 TrieNode suffixTrie = new TrieNode();
 
-                // check prefix
-                String prefSuff = words[i];
+                // prefix insert
                 String word = words[j];
                 addWord(word, prefixTrie);
-                StringBuffer sb = new StringBuffer(word);
-                sb.reverse();
-                word = sb.toString();
-                addWord(word, suffixTrie);
-                boolean notFound = false;
-                for (char c: prefSuff.toCharArray()) {
-                    int index = c - 'a';
-                    if (prefixTrie.children[index] == null) {
-                        notFound = true;
-                        break;
-                    }
-                    prefixTrie = prefixTrie.children[index];
-                }
-                if (notFound) continue;
-                StringBuffer sb2 = new StringBuffer(prefSuff);
-                sb2.reverse();
-                prefSuff = sb2.toString();
-                for (char c: prefSuff.toCharArray()) {
-                    int index = c - 'a';
-                    if (suffixTrie.children[index] == null) {
-                        notFound = true;
-                        break;
-                    }
-                    suffixTrie = suffixTrie.children[index];
-                }
 
-                if (!notFound) {
+                // suffix insert
+                word = new StringBuffer(word)
+                    .reverse()
+                    .toString();
+                addWord(word, suffixTrie);
+                
+                String prefix = words[i];
+                String suffix = new StringBuffer(prefix)
+                    .reverse()
+                    .toString();
+
+                if (startsWith(prefix, prefixTrie) && startsWith(suffix, suffixTrie)) {
                     count++;
                 }
             }
