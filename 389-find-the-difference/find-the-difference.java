@@ -13,7 +13,7 @@ class Solution {
         for (int i = 0; i < 26; i++) {
             if (freq[i] == 1) return (char) (i + 97);
         }
-        char c = 'c';
-        return c;
+      
+        return 'c';
     }
 }
