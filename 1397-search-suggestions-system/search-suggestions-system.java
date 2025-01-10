@@ -35,17 +35,19 @@ class Solution {
         TrieNode current = root;
         for (char c: searchWord.toCharArray()) {
             int index = c - 'a';
-            if (current.children[index] == null) {
-                while (answer.size() < searchWord.length()) {
-                    answer.add(new ArrayList<>());
-                }
-                break;
+            if (current.children[index] != null) {
+                current = current.children[index];
+                answer.add(current.suggestedProducts); 
+                continue;
             }
-
-            current = current.children[index];
-            answer.add(current.suggestedProducts); 
+            while (answer.size() < searchWord.length()) {
+                answer.add(new ArrayList<>());
+            }
+            break;
             
         }
+
+        
 
         return answer;
     }
