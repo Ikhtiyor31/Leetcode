@@ -21,8 +21,8 @@ class Solution {
         }
 
         int result = 0;
-        while (!stack.isEmpty()) {
-            result += stack.pop();
+        for (int score: stack) {
+            result += score;
         }
         return result;
     }
