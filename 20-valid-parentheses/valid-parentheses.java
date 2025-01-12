@@ -1,27 +1,24 @@
 class Solution {
     public boolean isValid(String s) {
-         
-         Stack<Character> stack = new Stack<>();
+        
 
-         for (Character ch: s.toCharArray()) {
-            if (ch == '(' || ch == '{' || ch == '[') {
-                stack.push(ch);
-            } else if (!stack.isEmpty() && stack.pop() == reversed(ch)) {
-                continue;
+        Stack<Character> stack = new Stack<>();
+        for (char c: s.toCharArray()) {
+            if (c == '(' || c == '[' || c == '{') {
+                stack.push(c);
             } else {
-                return false;
+                if (c == ')' && !stack.isEmpty() && stack.peek() == '(') {
+                    stack.pop();
+                } else if (c == '}' && !stack.isEmpty() && stack.peek() == '{') {
+                    stack.pop();
+                } else if (c == ']' && !stack.isEmpty() && stack.peek() == '[') {
+                    stack.pop();
+                } else {
+                    return false;
+                }
             }
-         }
+        }
 
-         return stack.isEmpty();
-    }
-
-    public static char reversed(char c) {
-        if (c == ')')
-            return '(';
-        else if (c == '}') 
-            return '{';
-        else 
-            return '[';
+        return stack.isEmpty();
     }
 }
