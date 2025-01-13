@@ -1,37 +1,19 @@
 class Solution {
     public int minimumLength(String s) {
         int n = s.length();
-        int len = n;
-        boolean[] deleted = new boolean[n];
-        
-        for (int i = 1; i < n; i++)  {
-            int l = i - 1;
-            int r = i + 1;
-            if (deleted[i]) continue;
-            boolean leftFound = false;
-            while (l >= 0) {
-                if (!deleted[l] && s.charAt(i) == s.charAt(l)) {
-                    leftFound = true;
-                    break;
-                }
-                l--;
-            }
-            boolean rightFound = false;
-            while (r < n) {
-                 if (!deleted[r] && s.charAt(i) == s.charAt(r)) {
-                    rightFound = true;
-                    break;
-                }
-                r++;
-            }
+        int[] freq = new int[26];
+        for (char c: s.toCharArray()) {
+            freq[c - 'a']++;
+        }
 
-            if (leftFound && rightFound) {
-                deleted[l] = true;
-                deleted[r] = true;
-                len -= 2;
+        for (int i = 0; i < 26; i++) {
+            if (freq[i] > 2) {
+                int removed = freq[i] - (freq[i] % 2 == 0 ? 2 : 1);
+                System.out.println(removed);
+                n -= removed;
             }
         }
 
-        return len;
+        return n;
     }
 }
