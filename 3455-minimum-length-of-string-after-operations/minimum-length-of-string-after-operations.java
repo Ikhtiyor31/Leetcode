@@ -9,7 +9,6 @@ class Solution {
         for (int i = 0; i < 26; i++) {
             if (freq[i] > 2) {
                 int removed = freq[i] - (freq[i] % 2 == 0 ? 2 : 1);
-                System.out.println(removed);
                 n -= removed;
             }
         }
