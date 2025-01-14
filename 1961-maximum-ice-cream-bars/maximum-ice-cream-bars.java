@@ -17,8 +17,13 @@ class Solution {
                 ans += bucket[i];
                 coins -= (bucket[i] * i);
             } else {
-                ans += (coins / i);
-                coins -= coins;
+                //System.out.println(coins + " " + i); // 3 : 7
+                while (bucket[i] != 0 && coins >= i) {
+                    coins -= i;
+                    bucket[i]--;
+                    ans++;
+                }
+                coins = 0;
             }
         }
 
