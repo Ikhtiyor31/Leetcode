@@ -1,26 +1,24 @@
 class Solution {
     public int minimizeXor(int num1, int num2) {
-        int x = 0;
-        int countNum2 = Integer.bitCount(num2); 
-        int countX = 0;    
-        
-        if (countNum2 == countX) {
-            return x;
-        }
-       
-        for (int i = 31; i >= 0; i--) {
-            if (countNum2 > countX && (isSet(num1, i) || countNum2 - countX > i)) {
-                x = x | (1 << i);   
-                countX++; 
+        int countNum2 = Integer.bitCount(num2);
+        int countX = Integer.bitCount(num1);
+        int i = 0;
+        while (countNum2 < countX) {
+            if ((num1 & (1 << i)) != 0) {
+                num1 &= ~(1 << i);
+                countX--;
             }
-          
-           
+            i++;
         }
 
-        return x;
-    }
+        while (countNum2 > countX) {
+            if ((num1 & (1 << i)) == 0) {
+                num1 |= (1 << i);
+                countX++;
+            }
+            i++;
+        }
 
-    public boolean isSet(int x, int bit) {
-        return (x & (1 << bit)) != 0;
+        return num1;
     }
 }
