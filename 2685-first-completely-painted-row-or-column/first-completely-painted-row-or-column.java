@@ -10,23 +10,9 @@ class Solution {
             }
         }
 
-        Map<Integer, Integer> columnSum = new HashMap<>();
-        Map<Integer, Integer> rowSum = new HashMap<>();
-        for (int i = 0; i < m; i++) {
-            int sum = 0;
-            for (int j = 0; j < n; j++) {
-                sum += mat[i][j];
-            }
-            columnSum.put(i, sum);
-        }
+        Map<Integer, Integer> columnCount = new HashMap<>();
+        Map<Integer, Integer> rowCount = new HashMap<>();
 
-        for (int i = 0; i < n; i++) {
-            int sum = 0;
-            for (int j = 0; j < m; j++) {
-                sum += mat[j][i];
-            }
-            rowSum.put(i, sum);
-        }
 
         //System.out.println(columnSum);
         //System.out.println(rowSum);
@@ -35,9 +21,9 @@ class Solution {
             int[] index = indices.get(arr[i]);
             int r = index[0];
             int c = index[1];
-            columnSum.put(r, columnSum.get(r) - mat[r][c]);
-            rowSum.put(c, rowSum.get(c) - mat[r][c]);
-            if (columnSum.get(r) == 0 || rowSum.get(c) == 0) {
+            columnCount.put(c, columnCount.getOrDefault(c, 0)  + 1);
+            rowCount.put(r, rowCount.getOrDefault(r, 0) + 1);
+            if (columnCount.get(c) == m || rowCount.get(r) == n) {
                 return i;
             }
         }
