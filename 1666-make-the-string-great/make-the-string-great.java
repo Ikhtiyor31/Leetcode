@@ -5,7 +5,7 @@ class Solution {
             if (stack.isEmpty()) {
                 stack.push(c);
             } else {
-                if (stack.peek() != c && (stack.peek() == Character.toLowerCase(c) || Character.toLowerCase(stack.peek()) == c)) {
+                if (Math.abs(stack.peek() - c) == 32) {
                     stack.pop();
                 } else {
                     stack.push(c);
