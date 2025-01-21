@@ -21,7 +21,7 @@ class Solution {
         }
 
         List<Integer> list = new ArrayList<>();
-        System.out.println(marbles);
+        //System.out.println(marbles);
         for (Map.Entry<Integer, Boolean> entries: marbles.entrySet()) {
             if (!entries.getValue()) {
                 list.add(entries.getKey());
