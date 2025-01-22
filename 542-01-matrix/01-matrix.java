@@ -8,7 +8,7 @@ class Solution {
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 if (isWater[i][j] == 0) {
-                    isWater[i][j] = 0;
+                    //isWater[i][j] = 1;
                     queue.add(new int[]{i, j});
                     visited.add(i + "," + j);
                 }
