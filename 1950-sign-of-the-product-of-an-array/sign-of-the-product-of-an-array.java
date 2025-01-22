@@ -1,15 +1,13 @@
 class Solution {
     public int arraySign(int[] nums) {
-        long count = 0;
-        for (int num: nums) {
-            if (num < 0) count++;
-            if (num == 0) return 0;
+        int sign = 1;
+        for (int x: nums) {
+            if (x == 0) {
+                return 0;
+            }
+            sign *= x > 0 ? 1: -1;
         }
 
-        if (count % 2 == 0) {
-            return 1;
-        }
-
-        return -1;
+        return sign >= 0 ? 1 : -1;
     }
 }
