@@ -1,12 +1,18 @@
 class Solution {
     public boolean rotateString(String s, String goal) {
-
-        if (goal.length() != s.length()) {
+        if (s.length() != goal.length()) {
             return false;
         }
-        String concat = s + s;
+        s = s + s;
+        for (int i = 0; i < s.length() - goal.length(); i++) {
+            if (s.substring(i, i + goal.length()).equals(goal)) {
+                return true;
+            }
+        }
 
-
-        return concat.contains(goal);
+        return false;
     }
 }
+
+//"abcde", goal = "cdeab"
+// abcdeabcde
