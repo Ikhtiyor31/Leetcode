@@ -22,13 +22,13 @@ class Solution {
         for (int i = 0; i < n; i++) {
             if (stack.isEmpty()) {
                 stack.push(i);
-                leftMinIndex[i] = 0;
+                leftMinIndex[i] = -1;
             } else {
                 while (!stack.isEmpty() && heights[stack.peek()] >= heights[i]) {
                     stack.pop();
                 }
                
-                leftMinIndex[i] = stack.isEmpty() ? 0 : stack.peek() + 1;
+                leftMinIndex[i] = stack.isEmpty() ? -1 : stack.peek();
                 stack.push(i);
                 
             }
@@ -39,22 +39,21 @@ class Solution {
         for (int i = n - 1; i >= 0; i--) {
             if (stack.isEmpty()) {
                 stack.push(i);
-                rightMinIndex[i] = n - 1;
+                rightMinIndex[i] = n;
             } else {
                 while (!stack.isEmpty() && heights[stack.peek()] >= heights[i]) {
                     stack.pop();
                 }
                 
-                rightMinIndex[i] = stack.isEmpty() ? n -1 : stack.peek() - 1;
+                rightMinIndex[i] = stack.isEmpty() ? n  : stack.peek();
                 stack.push(i);
             }
         }
 
-        System.out.println(Arrays.toString(leftMinIndex));
-        System.out.println(Arrays.toString(rightMinIndex));
+
 
         for (int i = 0; i < n; i++) {
-            largestArea = Math.max(largestArea, heights[i] * (rightMinIndex[i] - leftMinIndex[i] + 1));
+            largestArea = Math.max(largestArea, heights[i] * (rightMinIndex[i] - leftMinIndex[i]- 1));
         }
 
         return largestArea;
