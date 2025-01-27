@@ -2,25 +2,24 @@ class Solution {
     public int lengthOfLongestSubstring(String s) {
         
         int n = s.length();
+        Set<Character> duplicate = new HashSet<>();
         int longestLength = 0;
         int l = 0;
-        Map<Character, Integer> freq = new HashMap<>();
-        for (int r = 0; r < n; r++) {
-            freq.put(s.charAt(r), freq.getOrDefault(s.charAt(r), 0) + 1);
-
-            while (freq.get(s.charAt(r)) > 1) {
-                freq.put(s.charAt(l), freq.get(s.charAt(l)) - 1);
-                l++;
+        for (int i = 0; i < n; i++) {
+            
+            while (duplicate.contains(s.charAt(i))) {
+                duplicate.remove(s.charAt(l++));
             }
 
-            longestLength = Math.max(longestLength, r - l + 1);
+            duplicate.add(s.charAt(i));
+            
+            longestLength = Math.max(longestLength, i - l + 1);
         }
 
         return longestLength;
     }
 }
-// Time: O(N) * O(N) * O(1) -> (N^2)
-// Space: O(N) // we may store N characters at most at any given time.
+
 
 /*
 s = abcabcbb
@@ -28,11 +27,4 @@ set = b, c, a,
         c, a b, c
             a, b, c,
                 i
-s = abcabcbb longestLenght = Math.max(longestLength, r - l + 1);
-    01234567
-       l  r
-    abcabc
-    
-    c=2
-
 */
