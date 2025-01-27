@@ -3,19 +3,24 @@ class Solution {
         
         int n = s.length();
         int longestLength = 0;
-        for (int i = 0; i < n; i++) {
-            Set<Character> duplicate = new HashSet<>();
-            for (int j = i; j < n; j++) {
-                if (duplicate.contains(s.charAt(j))) break;
-                duplicate.add(s.charAt(j));
+        int l = 0;
+        Map<Character, Integer> freq = new HashMap<>();
+        for (int r = 0; r < n; r++) {
+            freq.put(s.charAt(r), freq.getOrDefault(s.charAt(r), 0) + 1);
+
+            while (freq.get(s.charAt(r)) > 1) {
+                freq.put(s.charAt(l), freq.get(s.charAt(l)) - 1);
+                l++;
             }
-            longestLength = Math.max(longestLength, duplicate.size());
+
+            longestLength = Math.max(longestLength, r - l + 1);
         }
 
         return longestLength;
     }
 }
-
+// Time: O(N) * O(N) * O(1) -> (N^2)
+// Space: O(N) // we may store N characters at most at any given time.
 
 /*
 s = abcabcbb
@@ -23,4 +28,11 @@ set = b, c, a,
         c, a b, c
             a, b, c,
                 i
+s = abcabcbb longestLenght = Math.max(longestLength, r - l + 1);
+    01234567
+       l  r
+    abcabc
+    
+    c=2
+
 */
