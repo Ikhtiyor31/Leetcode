@@ -27,7 +27,6 @@ class Solution {
         for (int i = 0; i < n; i++) {
             int num = nums[i];
             int g = numGroups.get(num);
-            System.out.println(g);
             nums[i] = groupToList.get(g).pop();
         }
 
