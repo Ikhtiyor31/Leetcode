@@ -7,25 +7,7 @@ class Solution {
         int ans = n;
         while (l <= r) {
             int m = l + (r - l) / 2;
-            if (nums[m] >= target) {
-                ans = m;
-                r = m - 1;
-            } else {
-                l = m + 1;
-            }
-        }
-
-        return ans;
-    } 
-
-    public int binarySearch2(int[] nums, int target) {
-        int n =nums.length;
-        int l = 0;
-        int r = n - 1;
-        int ans = -1;
-        while (l <= r) {
-            int m = l + (r - l) / 2;
-            if (nums[m] <= target) {
+            if (nums[m] < target) {
                 ans = m;
                 l = m + 1;
             } else {
@@ -33,7 +15,7 @@ class Solution {
             }
         }
 
-        return ans;
+        return l;
     } 
 
 
