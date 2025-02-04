@@ -4,7 +4,7 @@ class Solution {
         int n =nums.length;
         int l = 0;
         int r = n - 1;
-        int ans = -1;
+        int ans = n;
         while (l <= r) {
             int m = l + (r - l) / 2;
             if (nums[m] >= target) {
@@ -40,10 +40,10 @@ class Solution {
     public int[] searchRange(int[] nums, int target) {
         
         int first =  binarySearch(nums, target);
-        int second = binarySearch2(nums, target);
+        int second = binarySearch(nums, target + 1);
         //System.out.println(first + " " + second);
-        if (first != -1 && second != -1 && nums[first] == target) {
-            return new int[]{first, second};
+        if (first <= second - 1) {
+            return new int[]{first, second - 1};
         }
         return new int[]{-1, -1};
     }
