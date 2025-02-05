@@ -20,16 +20,12 @@ class Solution {
             List<Integer> currList = list.get(i);
             for (int num: currList) {
                 ans[j++] = num;
-                
-                if (j == k) {
-                    done = true;
-                    break;
-                }
+                if (j == k)
+                return ans;
               
             }
-            if (done) break;
         }
 
-        return ans;
+        return new int[]{};
     }
 }
