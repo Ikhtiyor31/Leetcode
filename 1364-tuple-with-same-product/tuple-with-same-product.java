@@ -10,10 +10,9 @@ class Solution {
             }
         }
 
-        System.out.println(map);
         int answer = 0;
-        for (Map.Entry<Integer, Integer> entries: map.entrySet()) {
-            if (entries.getValue() > 2) answer += comb(entries.getValue() / 2) * 8;
+        for (int value: map.values()) {
+            if (value > 2) answer += comb(value / 2) * 8;
         }
 
 
