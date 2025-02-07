@@ -4,13 +4,11 @@ class Solution {
             return 0;
         }
         visited[node] = true;
-        int count = 0;
-        for (List<Integer> list: adj.get(node)) {
-            if (!visited[list.get(0)]) {
-                count += list.get(1);
-                count += dfs(visited, adj, list.get(0));
-            }
-        }
+        int count = adj.getOrDefault(node, List.of())
+                .stream()
+                .filter(list -> !visited[list.get(0)])
+                .mapToInt(list -> list.get(1) + dfs(visited, adj, list.get(0)))
+                .sum();
 
         return count;
     }
