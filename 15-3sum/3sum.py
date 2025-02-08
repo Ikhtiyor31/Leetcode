@@ -15,8 +15,10 @@ class Solution:
                     answer.append([num, nums[l], nums[r]])
                     while l < n - 1 and nums[l] == nums[l + 1]:
                         l += 1
-                    while r > 0 and nums[r - 1] == nums[r]:
+                    
+                    while l < r and nums[l] == nums[l + 1] and nums[r - 1] == nums[r]:
                         r -= 1
+                        l += 1
                     l += 1
                     r -= 1
                 elif sum > 0:
