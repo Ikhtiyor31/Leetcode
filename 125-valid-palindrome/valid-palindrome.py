@@ -10,17 +10,14 @@ class Solution:
         r = n - 1
         s = s.lower()
         while l < r:
-            if s[l] == s[r]:
+            
+            if not Solution.is_character(s[l]) and not Solution.is_digit(s[l]):
                 l += 1
+            elif not Solution.is_character(s[r]) and not Solution.is_digit(s[r]):
                 r -= 1
+            elif s[l] != s[r]:
+                return False
             else:
-                if (Solution.is_character(s[l]) or Solution.is_digit(s[l])) and (Solution.is_character(s[r]) or Solution.is_digit(s[r])):
-                    return False
-                if Solution.is_character(s[l]) or Solution.is_digit(s[l]):
-                    r -= 1
-                elif Solution.is_character(s[r]) or Solution.is_digit(s[r]):
-                    l += 1
-                else:
-                    l += 1
-                    r -= 1
+                r -= 1
+                l += 1
         return True
