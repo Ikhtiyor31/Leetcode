@@ -2,14 +2,11 @@ class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
         for i in range(0, 9):
             row_seen = {}
-            for j in range(0, 9):
-                if board[j][i] != '.' and board[j][i] in row_seen:
-                    return False
-                row_seen[board[j][i]] = True
             col_seen = {}
             for j in range(0, 9):
-                if board[i][j] != '.' and board[i][j] in col_seen:
+                if (board[j][i] != '.' and board[j][i] in row_seen) or (board[i][j] != '.' and board[i][j] in col_seen):
                     return False
+                row_seen[board[j][i]] = True
                 col_seen[board[i][j]] = True
 
         for i in range(0, 3):
