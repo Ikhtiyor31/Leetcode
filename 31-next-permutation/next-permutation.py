@@ -19,6 +19,6 @@ class Solution:
                 break
         
         nums[right], nums[index] = nums[index], nums[right]
-        nums[right + 1:] = nums[right + 1:][::-1]
+        nums[right + 1:] = reversed(nums[right + 1:])
         
         
