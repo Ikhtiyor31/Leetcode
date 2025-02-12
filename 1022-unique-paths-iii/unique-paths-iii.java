@@ -14,6 +14,7 @@ class Solution {
     }
 
     int answer;
+    int[][] directions = {{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
     public void dfs(int[][] grid, int r, int c, int target, int count) {
         if (r >= grid.length || r < 0 || c >= grid[0].length || c < 0 || grid[r][c] == -1) {
             return;
@@ -26,11 +27,12 @@ class Solution {
         int prev = grid[r][c];
         grid[r][c] = -1;
 
-        dfs(grid, r + 1, c, target, count + 1);
-        dfs(grid, r, c + 1, target, count + 1);
-        dfs(grid, r - 1, c, target, count + 1);
-        dfs(grid, r, c - 1, target, count + 1);
-        
+        for (int[] direction: directions) {
+            int new_r = r + direction[0];
+            int new_c = c + direction[1];
+            dfs(grid, new_r, new_c, target, count + 1);
+        }
+
         grid[r][c] = prev;
 
     }
@@ -56,7 +58,6 @@ class Solution {
         int[] start = startSquare(grid);
         int obstacles = countObstacles(grid);
         int target = (m * n ) - obstacles - 2;
-        System.out.println(target);
         dfs(grid, start[0], start[1], target, 0);
         
         
