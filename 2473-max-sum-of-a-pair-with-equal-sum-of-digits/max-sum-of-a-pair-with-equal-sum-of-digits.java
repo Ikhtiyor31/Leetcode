@@ -10,30 +10,21 @@ class Solution {
         return sum;
     }
     public int maximumSum(int[] nums) {
-        Map<Integer, List<Integer>> freqList = new HashMap<>();
+        Map<Integer, Integer> freqMap = new HashMap<>();
+        int maximumSum = -1;
         for (int num: nums) {
             int digitsSum = getDigtisSum(num);
-            if (!freqList.containsKey(digitsSum)) {
-                freqList.put(digitsSum, new ArrayList<>());
+            if (!freqMap.containsKey(digitsSum)) {
+                freqMap.put(digitsSum, num);
+                continue;
             }
-           
-            freqList.get(digitsSum).add(num);
-            if (freqList.get(digitsSum).size() > 2) {
-                List<Integer> list = freqList.get(digitsSum);
-                Collections.sort(list, Comparator.reverseOrder());
-                freqList.get(digitsSum).remove(list.size()-1);
-                freqList.get(digitsSum).set(0, list.get(0));
-                freqList.get(digitsSum).set(1, list.get(1));
-            }
+
+            maximumSum = Math.max(maximumSum, freqMap.get(digitsSum) + num);
+            freqMap.put(digitsSum, Math.max(freqMap.get(digitsSum), num));
         }
 
-        int maximumSum = -1;
-        for (List<Integer> list: freqList.values()) {
-            if (list.size() > 1) {
-                maximumSum = Math.max(maximumSum, list.get(0) + list.get(1));
-            }
-        }
        
+      
         return maximumSum;
     }
 }
