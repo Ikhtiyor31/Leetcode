@@ -10,17 +10,17 @@ class Solution {
         return sum;
     }
     public int maximumSum(int[] nums) {
-        Map<Integer, Integer> freqMap = new HashMap<>();
+        int[] digitMap = new int[82];
         int maximumSum = -1;
         for (int num: nums) {
             int digitsSum = getDigtisSum(num);
-            if (!freqMap.containsKey(digitsSum)) {
-                freqMap.put(digitsSum, num);
+            if (digitMap[digitsSum] == 0) {
+                digitMap[digitsSum] = num;
                 continue;
             }
 
-            maximumSum = Math.max(maximumSum, freqMap.get(digitsSum) + num);
-            freqMap.put(digitsSum, Math.max(freqMap.get(digitsSum), num));
+            maximumSum = Math.max(maximumSum,digitMap[digitsSum] + num);
+            digitMap[digitsSum] = Math.max(digitMap[digitsSum], num);
         }
 
        
