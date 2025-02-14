@@ -1,37 +1,25 @@
 class ProductOfNumbers {
     private List<Integer> list;
+    int lastIndex;
     public ProductOfNumbers() {
         list = new ArrayList<>();
+        lastIndex = -1;
     }
     
     public void add(int num) {
         if (num == 0) {
-            for (int i = list.size() - 1; i >= 0; i--) {
-                if (list.get(i) != 0) {
-                    list.set(i, 0);
-                } else {
-                    break;
-                }
-            }
+            list.clear();
+            lastIndex = list.size();
+        } else {
+            int last = list.isEmpty() ? 1 : list.get(list.size() - 1);
+            list.add(num * last);
         }
-
-        if (list.size()  >= 1 && num != 0) {
-            list.add(num * (list.get(list.size() - 1) == 0 ? 1 : list.get(list.size() - 1)));
-        } else { 
-            list.add(num);
-        }
-        //System.out.println("here " + list);
     }
     
     public int getProduct(int k) {
-        int product = 1;
-      
-        if (list.get(list.size() - k) == 0) {
-            return 0;
-        }
-     
-
-        return list.get(list.size() - 1) / (list.size() > k ?  list.get(list.size() - k - 1) == 0 ? 1 : list.get(list.size() - k - 1): 1 );
+        if (k > list.size() || lastIndex > list.size() - k) return 0;
+        
+        return list.get(list.size() - 1) / (list.size() ==  k ? 1 : list.get(list.size() - k - 1));
     }
 }
 
