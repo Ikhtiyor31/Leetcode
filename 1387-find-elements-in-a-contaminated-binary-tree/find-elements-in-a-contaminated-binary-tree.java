@@ -22,20 +22,18 @@ class FindElements {
         exist = new HashSet<>();
         exist.add(0);
         while (!queue.isEmpty()) {
-            int size = queue.size();
-            while (size > 0) {
-                Pair<TreeNode, Integer> pair = queue.poll();
-                if (pair.getKey().left != null) {
-                    exist.add(2 * pair.getValue() + 1);
-                    queue.add(new Pair<>(pair.getKey().left, 2 * pair.getValue() + 1));
-                }
-
-                if (pair.getKey().right != null) {
-                    exist.add(2 * pair.getValue() + 2);
-                    queue.add(new Pair<>(pair.getKey().right, 2 * pair.getValue() + 2));
-                }
-                size--;
+            
+            Pair<TreeNode, Integer> pair = queue.poll();
+            if (pair.getKey().left != null) {
+                exist.add(2 * pair.getValue() + 1);
+                queue.add(new Pair<>(pair.getKey().left, 2 * pair.getValue() + 1));
             }
+
+            if (pair.getKey().right != null) {
+                exist.add(2 * pair.getValue() + 2);
+                queue.add(new Pair<>(pair.getKey().right, 2 * pair.getValue() + 2));
+            }
+            
         }
         
     }
