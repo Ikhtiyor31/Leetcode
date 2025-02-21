@@ -14,24 +14,23 @@
  * }
  */
 class FindElements {
-    private Queue<Pair<TreeNode, Integer>> queue;
     private Set<Integer> exist;
     public FindElements(TreeNode root) {
-        queue = new LinkedList<>();
-        queue.add(new Pair<>(root, 0));
+        Queue<TreeNode> queue = new LinkedList<>();
+        root.val = 0;
+        queue.add(root);
         exist = new HashSet<>();
-        exist.add(0);
         while (!queue.isEmpty()) {
-            
-            Pair<TreeNode, Integer> pair = queue.poll();
-            if (pair.getKey().left != null) {
-                exist.add(2 * pair.getValue() + 1);
-                queue.add(new Pair<>(pair.getKey().left, 2 * pair.getValue() + 1));
+            TreeNode pair = queue.remove();
+            exist.add(pair.val);
+            if (pair.left != null) {
+                pair.left.val = 2 * pair.val + 1;
+                queue.add(pair.left);
             }
 
-            if (pair.getKey().right != null) {
-                exist.add(2 * pair.getValue() + 2);
-                queue.add(new Pair<>(pair.getKey().right, 2 * pair.getValue() + 2));
+            if (pair.right != null) {
+                pair.right.val = 2 * pair.val + 2;
+                queue.add(pair.right);
             }
             
         }
