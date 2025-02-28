@@ -11,10 +11,9 @@ class Node {
 class Solution {
     public Node flatten(Node head) {
         if (head == null) return head;
-        Node current = new Node(0);
+        Node current = new Node(11);
         Stack<Node> stack = new Stack<>();
         stack.push(head);
-
         while (!stack.isEmpty()) {
             Node node = stack.pop();
             current.next = node;
@@ -24,13 +23,13 @@ class Solution {
             if (node.next != null) {
                 stack.push(node.next);
             }
+
             if (node.child != null) {
                 stack.push(node.child);
             }
         }
+
         head.prev = null;
-
         return head;
-
     }
 }
