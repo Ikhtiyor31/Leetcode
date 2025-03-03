@@ -4,13 +4,15 @@ class Solution {
             return false;
         }
 
-        if (index == word.length() - 1) {
-            return word.charAt(index) == board[i][j];
-        }
-
         if (board[i][j] != word.charAt(index)) {
             return false;
         }
+
+        if (index == word.length() - 1) {
+            return true;
+        }
+
+       
 
      
         char prev = board[i][j];
