@@ -15,6 +15,7 @@ class Solution {
         }
 
         if (word1.charAt(i - 1) == word2.charAt(j-1)) {
+            memo.put(key, minDistance(word1, word2, i - 1, j - 1, memo));
             return minDistance(word1, word2, i - 1, j - 1, memo);
         }
         int delete = minDistance(word1, word2, i - 1, j, memo);
