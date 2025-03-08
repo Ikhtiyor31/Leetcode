@@ -4,14 +4,10 @@ class Solution {
         int l = 0;
         int maxBlock = black;
         for (int i = 0; i < blocks.length(); i++) {
-            if (i < k) {
-                if (blocks.charAt(i) == 'B') black++;
+            if (blocks.charAt(i) == 'B') black++;
+            if (i >= k && blocks.charAt(i-k) == 'B') black--;
+            if (i >= k - 1)
                 maxBlock = Math.max(black, maxBlock);
-                continue;
-            }
-            if (blocks.charAt(l++) == 'B') black -= 1;
-            if (blocks.charAt(i) == 'B') black += 1;
-            maxBlock = Math.max(black, maxBlock);
         }
 
         return k - maxBlock;
