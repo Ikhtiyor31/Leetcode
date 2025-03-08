@@ -19,15 +19,17 @@ class Solution {
             return find(parent[x]);
         }
 
-        public void combine(int x, int y, int[] answer) {
+        public void combine(int x, int y) {
             x = find(x);
             y = find(y);
             if (x != y) {
-                answer[0] -= 1;
-                
+                if (size[x] < size[y]) {
                     parent[x] = y;
                     size[y] += size[x];
-                
+                } else {
+                    parent[y] = x;
+                    size[x] += size[y];
+                }
               
             }
 
@@ -46,13 +48,18 @@ class Solution {
         }
         DSU dsu = new DSU(n);
         int[] answer = new int[1];
-        answer[0] = n;
+        int operation = 0;
         for (int[] connection: connections) {
-            dsu.combine(connection[0], connection[1], answer);
+            dsu.combine(connection[0], connection[1]);
         }
         
+        for (int i = 0; i < n; i++) {
+            if (dsu.find(i) == i) {
+                operation++;
+            }
+        }
 
-        return answer[0] - 1;
+        return operation - 1;
     }
 
 
