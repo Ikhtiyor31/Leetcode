@@ -24,13 +24,10 @@ class Solution {
             y = find(y);
             if (x != y) {
                 answer[0] -= 1;
-                if (size[x] < size[y]) {
+                
                     parent[x] = y;
                     size[y] += size[x];
-                } else {
-                    parent[y] = x;
-                    size[x] += size[y];
-                }
+                
               
             }
 
