@@ -38,7 +38,7 @@ class Solution {
                 l += 1;
             }
 
-            while (l < n && vowelCount.size() == 5 && k == consonant) {
+            while (vowelCount.size() == 5 && k == consonant) {
                 answer += nextConsonant[r] - r;
                 if (isVowel(word.charAt(l))) {
                     vowelCount.put(word.charAt(l), vowelCount.getOrDefault(word.charAt(l), 0) - 1);
