@@ -4,13 +4,13 @@ class Solution {
     }
 
     public long countVowels(String word) {
-        long count = 0;
+        long total_substrings = 0;
         int n = word.length();
         for (int i = 0; i < n; i++) {
             if (isVowel(word.charAt(i)))
-                count += (long)(n - i) * (long)(i + 1);
+                total_substrings += (long)(i + 1) * (long)(n - i);
         }
 
-        return count;
+        return total_substrings;
     }
 }
