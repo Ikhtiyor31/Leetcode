@@ -16,22 +16,6 @@ class Solution {
         return l;
     }
 
-    public int binarySearch2(int[] nums, int target) {
-        int n = nums.length;
-        int l = 0;
-        int r = n - 1;
-        while (l < r) {
-            int mid = l + (r - l) / 2;
-           if (nums[mid] < target) {
-                l = mid + 1;
-            } else {
-                r = mid;
-            }
-        }
-
-        return l;
-    }
-
     public int maximumCount(int[] nums) {
         int n = nums.length;
         if (n == 1 && nums[0] == 0) {
