@@ -34,8 +34,8 @@ class Solution {
 
     public int maximumCount(int[] nums) {
         int n = nums.length;
-        if (n == 1) {
-            return nums[0] == 0? 0 : 1;
+        if (n == 1 && nums[0] == 0) {
+            return 0;
         }
         int pos = lowerBound(nums, 1);
         int posCount = pos == n - 1 ? 0 : n - pos;
