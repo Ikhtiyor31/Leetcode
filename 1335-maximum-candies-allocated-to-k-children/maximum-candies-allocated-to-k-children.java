@@ -1,7 +1,7 @@
 class Solution {
     public int maximumCandies(int[] candies, long k) {
         // binary 
-        int number = 10000000;
+        int number = Arrays.stream(candies).max().getAsInt();
         int n = candies.length;
         int l = 1;
         int r = number;
