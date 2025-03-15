@@ -1,5 +1,5 @@
 class Solution {
-    int[][][] memo = new int[1001][101][2];
+    int[][][] memo = new int[1000][101][2];
     public int dp(int[] prices, int k, int i, boolean isPurchased) {
         if (i >= prices.length || k == 0) {
             return 0;
@@ -24,7 +24,7 @@ class Solution {
 
     public int maxProfit(int k, int[] prices) {
         for (int i = 0; i < 101; i++) {
-            for(int j = 0; j < 1001; j++) {
+            for(int j = 0; j < 1000; j++) {
                 Arrays.fill(memo[j][i], -1);
             }
         }
