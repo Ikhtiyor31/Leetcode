@@ -14,6 +14,8 @@ class MedianFinder {
             maxHeap.add(minHeap.peek());
             minHeap.poll();
         }
+        //System.out.println(minHeap);
+        //System.out.println(maxHeap);
     }
     
     public double findMedian() {
@@ -24,8 +26,8 @@ class MedianFinder {
 /*
 1, 2, 3, 4, 5
 
-max_heap = 2, 2, 1
-min_heap = 3, 4, 5
+min_heap = 3
+max_heap =  2, 1
 
 */
 /**
