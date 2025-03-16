@@ -1,23 +1,26 @@
 class Solution {
     public int majorityElement(int[] nums) {
-        
-        int n = nums.length; 
-        Arrays.sort(nums);
-        int majority = 0;
-        int count = 1;
-        int answer = nums[0];
-        for (int i = 1; i < n; i++) {
-            if (nums[i-1] != nums[i]) {
-                count = 1;
+        int answer = 0;
+        for (int i = 0; i < 32; i++) {
+            int count = 0;
+            for (int num : nums) {
+                if ((num & (1 << i)) != 0) {
+                    count += 1;
+                }
             }
-            if (count > majority) {
-                majority = count;
-                answer = nums[i-1];
+            if (count > nums.length / 2) {
+                answer |= (1 << i);
             }
-            count += 1;
-            
         }
 
         return answer;
     }
 }
+
+/*
+ * 0011
+ * 0010
+ * 0011
+ * 0011
+ * 
+ */
