@@ -2,7 +2,7 @@ class Solution {
     public long repairCars(int[] ranks, int cars) {
         int n = ranks.length;
         long l = 1;
-        long r = Long.MAX_VALUE;
+        long r = (long)Arrays.stream(ranks).min().getAsInt() * cars * cars;
         while (l < r) {
             long mid = l + (r - l) / 2;
             long target = 0;
