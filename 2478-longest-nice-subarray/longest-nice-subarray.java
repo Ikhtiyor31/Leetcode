@@ -11,7 +11,7 @@ class Solution {
                 windowStart++;
             }
 
-            usedBits |= nums[windowEnd];
+            usedBits ^= nums[windowEnd];
             maxLength = Math.max(maxLength, windowEnd - windowStart + 1);
         }
 
