@@ -1,79 +1,72 @@
 class Solution {
+    class DSU {
+        private int[] parent;
+        private int[] rank;
 
-    int[] parent;
-    int[] depth;
+        public DSU(int n) {
+            this.parent = new int[n];
+            for (int i = 0; i < n; i++) {
+                this.parent[i] = -1;
+            }
+            rank = new int[n];
+        }
 
-    public int[] minimumCost(int n, int[][] edges, int[][] queries) {
-        // Initialize the parent array with -1 as initially each node belongs to its own component
-        parent = new int[n];
-        for (int i = 0; i < n; i++) parent[i] = -1;
+        public boolean connected(int x, int y) {
+            return find(x) == find(y);
+        }
 
-        depth = new int[n];
+        public int find(int node) {
+            if (parent[node] == -1)
+                return node;
+            return parent[node] = find(parent[node]);
+        }
 
-        // All values are initially set to the number with only 1s in its binary representation
+        public void union(int x, int y) {
+            int root1 = find(x);
+            int root2 = find(y);
+            if (root1 == root2)
+                return;
+
+            if (rank[root1] < rank[root2]) {
+                int temp = root1;
+                root1 = root2;
+                root2 = temp;
+            }
+
+            parent[root2] = root1;
+            if (rank[root1] == rank[root2]) {
+                rank[root1]++;
+            }
+        }
+    }
+
+    public int[] minimumCost(int n, int[][] edges, int[][] query) {
         int[] componentCost = new int[n];
         for (int i = 0; i < n; i++) {
             componentCost[i] = Integer.MAX_VALUE;
         }
-
+        DSU dsu = new DSU(n);
         // Construct the connected components of the graph
         for (int[] edge : edges) {
-            union(edge[0], edge[1]);
+            dsu.union(edge[0], edge[1]);
         }
 
-        // Calculate the cost of each component by performing bitwise AND of all edge weights in it
         for (int[] edge : edges) {
-            int root = find(edge[0]);
+            int root = dsu.find(edge[0]);
             componentCost[root] &= edge[2];
         }
-
-        int[] answer = new int[queries.length];
-        for (int i = 0; i < queries.length; i++) {
-            int start = queries[i][0];
-            int end = queries[i][1];
-
-            // If the two nodes are in different connected components, return -1
-            if (find(start) != find(end)) {
+        int[] answer = new int[query.length];
+        for (int i = 0; i < query.length; i++) {
+            int start = query[i][0];
+            int end = query[i][1];
+            if (dsu.find(start) != dsu.find(end)) {
                 answer[i] = -1;
             } else {
-                // Find the root of the edge's component
-                int root = find(start);
-                // Return the precomputed cost of the component
+                int root = dsu.find(start);
                 answer[i] = componentCost[root];
             }
         }
         return answer;
     }
 
-    // Find function to return the root (representative) of a node's component
-    private int find(int node) {
-        // If the node is its own parent, it is the root of the component
-        if (parent[node] == -1) return node;
-        // Otherwise, recursively find the root and apply path compression
-        return parent[node] = find(parent[node]);
-    }
-
-    // Union function to merge the components of two nodes
-    private void union(int node1, int node2) {
-        int root1 = find(node1);
-        int root2 = find(node2);
-
-        // If the two nodes are already in the same component, do nothing
-        if (root1 == root2) return;
-
-        // Union by depth: ensure the root of the deeper tree becomes the parent
-        if (depth[root1] < depth[root2]) {
-            int temp = root1;
-            root1 = root2;
-            root2 = temp;
-        }
-
-        // Merge the two components by making root1 the parent of root2
-        parent[root2] = root1;
-
-        // If both components had the same depth, increase the depth of the new root
-        if (depth[root1] == depth[root2]) {
-            depth[root1]++;
-        }
-    }
 }
