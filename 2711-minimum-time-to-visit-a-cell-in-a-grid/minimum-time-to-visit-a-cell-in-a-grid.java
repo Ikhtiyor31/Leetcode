@@ -16,14 +16,15 @@ class Solution {
             if (curr[0] == m - 1 && curr[1] == n - 1) {
                 return curr[2];
             }
-            System.out.println(Arrays.toString(curr));
             for (int[] dir: directions) {
                 int r = dir[0] + curr[0];
                 int c = dir[1] + curr[1];
                 String key = r + "," + c;
                 if (r < m && r >= 0 && c < n && c >= 0 && !visited.contains(key)) {
-                    int waitTime = ((grid[r][c] - curr[2]) % 2 == 0) ? 1 : 0;
-                    pq.offer(new int[]{r, c, Math.max(grid[r][c] + waitTime, curr[2] + 1)});
+                    int newTime =  Math.max(grid[r][c], curr[2] + 1);
+                    if (newTime % 2 != (curr[2] + 1) % 2)
+                        newTime++;
+                    pq.offer(new int[]{r, c, newTime});
                     visited.add(key);
                 }
             }
