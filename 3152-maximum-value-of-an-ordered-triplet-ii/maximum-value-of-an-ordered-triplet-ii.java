@@ -3,17 +3,11 @@ class Solution {
         int n = nums.length;
         long answer = 0;
         long max = nums[0];
-        long min = nums[1];
-        long maxDiff = max - min;
-        for (int i = 2; i < n; i++) {
-            answer = Math.max(answer, (maxDiff) * nums[i]);
-            if (max < nums[i-1]) {
-                max = nums[i-1];
-                min = nums[i];
-            } else {
-                min = Math.min(min, nums[i]);
-            }
-            maxDiff = Math.max(maxDiff, max - min);
+        long maxDiff = 0;
+        for (int i = 1; i < n; i++) {
+            answer = Math.max(answer, maxDiff * nums[i]);
+            maxDiff = Math.max(maxDiff, max - nums[i]);
+            max = Math.max(max, nums[i]);
         }
 
         return answer;
