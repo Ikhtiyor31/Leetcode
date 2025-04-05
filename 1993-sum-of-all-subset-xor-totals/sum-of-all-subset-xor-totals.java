@@ -1,30 +1,14 @@
 class Solution {
-    public void findSubsetSum(int[] nums, int i, List<Integer> list, List<List<Integer>> subsets) {
+    public int findSubsetSum(int[] nums, int i, int currentXOR) {
         if (i == nums.length) {
-            return;
+            return currentXOR;
         }
-
-        for (int j = i; j < nums.length; j++) {
-            list.add(nums[j]);
-            subsets.add(new ArrayList<>(list));
-            findSubsetSum(nums, j+1, list, subsets);
-            list.remove(list.size()-1);
-        }
-        
+        int withElement = findSubsetSum(nums, i + 1, currentXOR ^ nums[i]);
+        int withoutElement = findSubsetSum(nums, i + 1, currentXOR);
+        return withElement + withoutElement;
     }
     public int subsetXORSum(int[] nums) {
         int n = nums.length;
-        List<List<Integer>> subsets = new ArrayList<>();
-        int sum = 0;
-        findSubsetSum(nums, 0, new ArrayList<>(), subsets);
-        for (List<Integer> subset: subsets) {
-            int result = 0;
-            for (int num: subset) {
-                result = result ^ num;
-            }
-            sum += result;
-        }
-        
-        return sum;
+        return findSubsetSum(nums, 0, 0);
     }
 }
