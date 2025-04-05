@@ -8,7 +8,10 @@ class Solution {
         return withElement + withoutElement;
     }
     public int subsetXORSum(int[] nums) {
-        int n = nums.length;
-        return findSubsetSum(nums, 0, 0);
+        int result = 0;
+        for (int num: nums) {
+            result |= num;
+        }
+        return result << (nums.length - 1);
     }
 }
