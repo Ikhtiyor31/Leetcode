@@ -1,29 +1,21 @@
 class Solution {
-    public int minimumOperations(int[] nums) {
-        Set<Integer> set = new HashSet<>();
-        for (int num: nums) set.add(num);
-
-        if (set.size() == nums.length) return 0;
-
-        int i = 3;
-        int operation = 1;
-        while (i < nums.length) {
-            set = new HashSet<>();
-            for (int j = i; j < nums.length; j++) {
-                set.add(nums[j]);
-            }
-
-            if (set.size() == nums.length - i) {
-                break;
-            }
-            operation += 1;
-
-            
-          
-            i += 3;
-       
+    public boolean checkUnique(int[] nums, int i) {
+        Set<Integer> seen = new HashSet<>();
+        for (int j = i; j < nums.length; j++) {
+            if (seen.contains(nums[j])) return false;
+            seen.add(nums[j]);
         }
 
-        return operation;
+        return true;
+    }
+    public int minimumOperations(int[] nums) {
+        for (int i = 0; i < nums.length; i += 3) {
+            if (checkUnique(nums, i)) {
+                System.out.println(i);
+                return (i + 1) / 3;
+            }
+        }
+
+        return (int) Math.round((double) nums.length / 3);
     }
 }
