@@ -5,7 +5,7 @@ class Solution {
             String str = String.valueOf(x);
             if (str.length() % 2 == 1) continue;
             String first = str.substring(0, str.length() / 2);
-            String last = str.substring(str.length() / 2);
+            String last = str.substring(str.length() / 2, str.length());
             int firstSum = first.chars()
                 .map(Character::getNumericValue)
                 .sum();
