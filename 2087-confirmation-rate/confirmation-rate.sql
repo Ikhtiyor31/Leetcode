@@ -1,7 +1,7 @@
 # Write your MySQL query statement below
 SELECT 
     s.user_id as user_id,
-    ROUND(SUM(CASE WHEN c.action = 'confirmed' THEN 1 ELSE 0 END) / COUNT(*), 2) AS confirmation_rate
+    ROUND(AVG(CASE WHEN c.action = 'confirmed' THEN 1 ELSE 0 END), 2) AS confirmation_rate
 FROM 
     Signups s
 LEFT JOIN 
