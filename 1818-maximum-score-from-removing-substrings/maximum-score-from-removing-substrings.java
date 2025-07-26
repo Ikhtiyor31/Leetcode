@@ -70,7 +70,10 @@ class Solution {
                 }
             }
         }
-
+        
         return score;
     }
 }
+/*
+one thing i learned is that need stack to repeatedly keep track substring check and delete if possible so that we don't miss any
+*/
