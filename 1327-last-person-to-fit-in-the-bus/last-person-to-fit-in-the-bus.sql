@@ -1,20 +1,5 @@
 # Write your MySQL query statement below
 
- WITH CTE AS (SELECT 
-    person_name,
-    SUM(weight) OVER (ORDER BY turn ASC) as rollingSum,
-    turn
-FROM 
-    Queue)
 
-SELECT
-    person_name
-FROM 
-    CTE
-WHERE
-    rollingSum <= 1000
-ORDER BY
-    rollingSum DESC
-LIMIT 1
-
-
+with cte as (select *, sum(weight) over (order by turn asc) as running_sum from Queue) 
+select person_name from cte where running_sum <= 1000 order by running_sum DESC limit 1
