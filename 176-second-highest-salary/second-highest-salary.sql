@@ -1,9 +1,6 @@
 # Write your MySQL query statement below
 
-SELECT 
-    MAX(e1.salary) SecondHighestSalary
-FROM
-    employee e1 
-JOIN 
-    employee e2 
-ON e1.salary < e2.salary
+with cte as (select *, dense_rank() over(order by salary desc) rnk from Employee)
+
+select (
+select distinct salary from cte where rnk = 2) as SecondHighestSalary
