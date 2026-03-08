@@ -1,25 +1,10 @@
 # Write your MySQL query statement below
 
-WITH CTE AS (SELECT 
-    d.name as Department,
-    e.name as Employee,
-    e.salary as Salary,
-    DENSE_RANK() OVER(PARTITION BY d.name ORDER BY e.salary DESC) as rnk
-FROM 
-    Employee e
-LEFT JOIN 
-    Department d
-ON e.departmentId = d.id)
 
-
-SELECT 
-    Department,
-    Employee,
-    Salary
-FROM
-    CTE
-WHERE rnk <= 3
-
-
-
-
+select 
+    d1.name as "Department",
+    e1.name as "Employee",
+    e1.salary as "Salary"
+from Employee e1
+left join Department d1 on e1.departmentId = d1.id
+where 3 > (select count(distinct e2.salary) from Employee e2 where e2.salary > e1.salary and e2.departmentId = d1.id)
