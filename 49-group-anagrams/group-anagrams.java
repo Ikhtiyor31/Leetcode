@@ -1,12 +1,18 @@
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
-         List<List<String>> answer = Arrays.stream(strs)
-            .collect(Collectors.groupingBy(item -> {
-                char[] charArray = item.toCharArray();
-                Arrays.sort(charArray);
-                return new String(charArray);
-            })).values().stream().toList();
-        
+        Map<String, List<String>> sortedResult= Arrays.stream(strs)
+        .collect(Collectors.groupingBy(str -> getSortedResult(str.chars())));
+        List<List<String>> answer = new ArrayList<>();
+        for (List<String> result: sortedResult.values()) {
+            answer.add(result);
+        }
+
         return answer;
+    }
+
+    String getSortedResult(IntStream str) {
+        return str.mapToObj(c -> String.valueOf((char) c))
+            .sorted()
+            .collect(Collectors.joining());
     }
 }
