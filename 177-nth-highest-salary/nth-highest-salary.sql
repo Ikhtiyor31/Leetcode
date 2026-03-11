@@ -1,9 +1,10 @@
 CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
 BEGIN
+  SET N = N-1;
   RETURN (
-    select salary
-      from (select salary, dense_rank() over(order by salary desc) as salaryRank from Employee) ranked
-      where salaryRank = N
-      limit 1
+      SELECT DISTINCT salary
+      FROM Employee
+      ORDER BY salary DESC
+      LIMIT 1 OFFSET N
   );
-END
+END;
